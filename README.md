@@ -105,7 +105,7 @@ output.elasticsearch:
  - for filebeat: go to "add log data" then the DEB tab and scroll all the way down to Step 5 and click "check data": you should see this:
   ![filebeat confirmation](https://github.com/28sides/BootCamp/blob/main/Images/Filebeat_successfully_installed.png)
  - for metricbeat: go to "add metric data" then the DEB tab and scroll all teh way down to Step 5 and click "check data" and you should see this:
-  ![metricbeat confirmation(https://github.com/28sides/BootCamp/blob/main/Images/metricbeat_success.png)
+  ![metricbeat confirmation](https://github.com/28sides/BootCamp/blob/main/Images/metricbeat_success.png)
 
 [^1]: use the nano command to edit the files for your specific set-up 
 [^2]: run ansible-playbook nameoffile.yaml for all the yaml files
