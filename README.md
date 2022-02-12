@@ -67,30 +67,47 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![Update the path with the name of your screenshot of docker ps output](https://github.com/28sides/BootCamp/blob/main/Images/Docker_PS_Elk.png)
+![Docker PS Output](https://github.com/28sides/BootCamp/blob/main/Images/Docker_PS_Elk.png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-Web1 10.0.0.5 and Web2 10.0.0.7
+Web1: 10.0.0.5 and Web2: 10.0.0.7
 
 We have installed the following Beats on these machines:
 - Filebeat
 - Metricbeat
 
 These Beats allow us to collect the following information from each machine:
-- Filebeat collects the system logs
+- Filebeat collects select system logs and formats them for easy parsing. This is a much more lightweight option than logstash 
+- Metricbeat collects the system metrics (os, disk i/o, etc). This allows you to easily see your systems background activity. 
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the install_elk.yaml[^3] file to /etc/ansible folder. 
+- update the remote username in the install_elk.yaml file
+- Update the hosts file to include your elk ip & webserver IPs [see sample hosts file](https://github.com/28sides/BootCamp/blob/main/yamls/hosts.txt)
+- Update the ansible.conf file with your private_key_file = private/ssh_key/file_path
+- Run the playbook[^2] , and navigate to your elk ip X.X.X.X/5601
+This will install the basic elk stack onto your machine to install the filebeat and metricbeat you will follow the basic steps but you will also need to download & edit the metricbeat-config.yaml and filebeat-config.yaml files before running the filebeat- and metricbeat-playbook.yaml
+- file-beatconfig.yaml & metricbeat-config.yaml: edit the following sections
+```
+setup.kibana
+  host: "10.1.0.6:5601" #TODO: Change this to the IP address of your ELK server
+```
+```
+output.elasticsearch:
+    hosts: ["10.1.0.6:9200"] #TODO: Change this to the IP of your ELK server
+```
+- once you've edited the file-beatconfig and metricbeat-config yamls, run the corresponding playbooks
+- to confirm that they are running go back to your kibana site and while "explore on my own"
+ - for filebeat: go to "add log data" then the DEB tab and scroll all the way down to Step 5 and click "check data": you should see this:
+  ![filebeat confirmation](https://github.com/28sides/BootCamp/blob/main/Images/Filebeat_successfully_installed.png)
+ - for metricbeat: go to "add metric data" then the DEB tab and scroll all teh way down to Step 5 and click "check data" and you should see this:
+  ![metricbeat confirmation(https://github.com/28sides/BootCamp/blob/main/Images/metricbeat_success.png)
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+[^1]: use the nano command to edit the files for your specific set-up 
+[^2]: run ansible-playbook nameoffile.yaml for all the yaml files
+[^3]: run curl command then change the file by removing the .txt before running the playbook - do this for all the files because I am lazy and this was a deliverable for class on my birthday weekend and I needed to get it done fast
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
