@@ -85,11 +85,11 @@ These Beats allow us to collect the following information from each machine:
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the install_elk.yaml[^3] file to /etc/ansible folder. 
+- Copy the install_elk.yaml[^1] file to /etc/ansible folder. 
 - update the remote username in the install_elk.yaml file
-- Update the hosts file to include your elk ip & webserver IPs [see sample hosts file](https://github.com/28sides/BootCamp/blob/main/yamls/hosts.txt)
+- Update the hosts file[^2] to include your elk ip & webserver IPs [see sample hosts file](https://github.com/28sides/BootCamp/blob/main/yamls/hosts.txt)
 - Update the ansible.conf file with your private_key_file = private/ssh_key/file_path
-- Run the playbook[^2] , and navigate to your elk ip X.X.X.X/5601
+- Run the playbook[^3] , and navigate to your elk ip X.X.X.X/5601
 This will install the basic elk stack onto your machine to install the filebeat and metricbeat you will follow the basic steps but you will also need to download & edit the metricbeat-config.yaml and filebeat-config.yaml files before running the filebeat- and metricbeat-playbook.yaml
 - file-beatconfig.yaml & metricbeat-config.yaml: edit the following sections
 ```
@@ -107,7 +107,6 @@ output.elasticsearch:
  - for metricbeat: go to "add metric data" then the DEB tab and scroll all teh way down to Step 5 and click "check data" and you should see this:
   ![metricbeat confirmation](https://github.com/28sides/BootCamp/blob/main/Images/metricbeat_success.png)
 
-[^1]: use the nano command to edit the files for your specific set-up 
-[^2]: run ansible-playbook nameoffile.yaml for all the yaml files
-[^3]: run curl command then change the file by removing the .txt before running the playbook - do this for all the files because I am lazy and this was a deliverable for class on my birthday weekend and I needed to get it done fast
-
+[^1]: run curl command then change the file by removing the .txt before running the playbook - do this for all the files because I am lazy and this was a deliverable for class on my birthday weekend and I needed to get it done fast
+[^2]: I like using nano to edit my files
+[^3]: run ansible-playbook nameoffile.yaml for all the yaml files
